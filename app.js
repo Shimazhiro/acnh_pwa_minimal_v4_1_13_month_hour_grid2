@@ -1,4 +1,4 @@
-// あつ森 いきものチェック（オフラインPWA） v4.1
+// あつまれどうぶつの森 チェックツール（オフラインPWA） v4.1
 // 修正点：
 // - 生き物が表示されない問題に対応（fetch失敗時は data-inline.js を利用）
 // - 書き出し/読み込み（JSON）を削除
@@ -9,7 +9,7 @@ const $ = (sel) => document.querySelector(sel);
 const STORAGE_KEY = "acnh_checklist_v4.1";
 
 const defaultState = {
-  meta: { version: "4.1.14" },
+  meta: { version: "4.1.15" },
   settings: {
     hemisphere: "north", // north | south
     nowMode: "auto",     // auto | manual
@@ -78,7 +78,7 @@ function migrateIfNeeded(obj){
 
   // version migration (keep marks)
   const prevVer = (merged.meta && merged.meta.version) ? String(merged.meta.version) : "";
-  const curVer  = "4.1.14";
+  const curVer  = "4.1.15";
   merged.meta = { ...(merged.meta || {}), version: curVer };
 
   if (prevVer !== curVer) {
@@ -298,7 +298,7 @@ function renderList(kind, items){
         <div class="fitem">
           <div class="label">Nowモード</div>
           <select id="${kind}-set-nowMode">
-            <option value="auto" ${s.nowMode==="auto"?"selected":""}>自動（端末時刻）</option>
+            <option value="auto" ${s.nowMode==="auto"?"selected":""}>自動</option>
             <option value="manual" ${s.nowMode==="manual"?"selected":""}>手動</option>
           </select>
         </div>
@@ -319,7 +319,7 @@ function renderList(kind, items){
 
         <div class="fitem spanAll">
           <div class="row checksRow">
-            <label class="row"><input type="checkbox" id="${kind}-set-showNowOnly" ${s.showNowOnly?"checked":""}/> <span class="label">今狙えるのみ</span></label>
+            <label class="row"><input type="checkbox" id="${kind}-set-showNowOnly" ${s.showNowOnly?"checked":""}/> <span class="label">今狙える（Only）</span></label>
             <label class="row"><input type="checkbox" id="${kind}-set-sortNowFirst" ${s.sortNowFirst?"checked":""}/> <span class="label">今狙える（昇順）</span></label>
             <label class="row"><input type="checkbox" id="${kind}-checkAll" ${allChecked?"checked":""}/> <span class="label">すべてチェック（表示中）</span></label>
           </div>
@@ -340,7 +340,7 @@ function renderList(kind, items){
         <div class="fitem">
           <div class="label">場所</div>
           <select id="${kind}-f-place">
-            ${placeOptions.map(p=> `<option value="${escapeHtml(p)}" ${String(f.place)===String(p)?"selected":""}>${p===""?"（指定なし）":escapeHtml(p)}</option>`).join("")}
+            ${placeOptions.map(p=> `<option value="${escapeHtml(p)}" ${String(f.place)===String(p)?"selected":""}>${p===""?"指定なし":escapeHtml(p)}</option>`).join("")}
           </select>
         </div>
         ` : `` }
@@ -609,3 +609,59 @@ document.querySelectorAll(".tab").forEach(btn => btn.addEventListener("click", (
   saveState();
   setView(state.currentView);
 })();
+
+
+function initCompactListInteractions(){
+  const root = document.getElementById("app");
+  if(!root) return;
+
+  root.addEventListener("click", (e)=>{
+    const btn = e.target.closest && e.target.closest("button.cNameBtn");
+    if(btn){
+      const row = btn.closest(".cRow");
+      if(!row) return;
+      const detail = row.querySelector(".cDetail");
+      if(!detail) return;
+      detail.hidden = !detail.hidden;
+      return;
+    }
+  });
+
+  let lpTimer = null;
+  let lpTarget = null;
+
+  const start = (target)=>{
+    clearTimeout(lpTimer);
+    lpTarget = target;
+    lpTimer = setTimeout(()=>{
+      const row = lpTarget && lpTarget.closest ? lpTarget.closest(".cRow") : null;
+      if(!row) return;
+      const detail = row.querySelector(".cDetail");
+      if(detail) detail.hidden = !detail.hidden;
+    }, 450);
+  };
+  const cancel = ()=>{
+    clearTimeout(lpTimer);
+    lpTimer = null;
+    lpTarget = null;
+  };
+
+  root.addEventListener("touchstart", (e)=>{
+    const row = e.target.closest && e.target.closest(".cRow");
+    if(!row) return;
+    if(e.target.closest("label.cChk")) return;
+    start(e.target);
+  }, {passive:true});
+  root.addEventListener("touchend", cancel, {passive:true});
+  root.addEventListener("touchmove", cancel, {passive:true});
+  root.addEventListener("touchcancel", cancel, {passive:true});
+
+  root.addEventListener("contextmenu", (e)=>{
+    const row = e.target.closest && e.target.closest(".cRow");
+    if(!row) return;
+    e.preventDefault();
+    const detail = row.querySelector(".cDetail");
+    if(detail) detail.hidden = !detail.hidden;
+  });
+}
+

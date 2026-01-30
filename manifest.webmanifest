@@ -1,6 +1,6 @@
 {
-  "name": "あつ森 いきものチェック",
-  "short_name": "いきものチェック",
+  "name":"あつまれどうぶつの森 チェックツール",
+  "short_name":"あつ森チェック",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f6f7fb",

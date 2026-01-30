@@ -129,3 +129,44 @@ select:disabled,input:disabled{opacity:.55}
   .table td.td-name .nameRow{display:flex;justify-content:space-between;gap:10px;align-items:center;}
   .badge{max-width:100%;white-space:normal;}
 }
+
+/* v4.1.15 compact list (mobile-first) */
+body{overflow-x:hidden;}
+.listArea{overflow-x:hidden;}
+.cRow{
+  display:grid;
+  grid-template-columns: auto 3.8em 1fr;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+}
+.cNo{font-variant-numeric: tabular-nums; color: rgba(0,0,0,0.65);}
+.cNameBtn{
+  text-align:left;
+  background:transparent;
+  border:none;
+  padding:0;
+  margin:0;
+  font-size:16px;
+  line-height:1.2;
+  color: inherit;
+}
+.cNameBtn:active{opacity:0.7;}
+.cChk{display:flex;align-items:center;gap:6px;}
+.cChkLabel{font-size:12px;color:rgba(0,0,0,0.7);}
+.cDetail{
+  grid-column: 1 / -1;
+  margin-top:6px;
+  padding:10px;
+  border-radius:10px;
+  background: rgba(0,0,0,0.04);
+}
+.cDetailLine{display:flex;justify-content:space-between;gap:10px;padding:3px 0;}
+.cKey{font-size:12px;color:rgba(0,0,0,0.65);white-space:nowrap;}
+.cVal{font-size:13px;color:rgba(0,0,0,0.85);text-align:right;}
+/* Reduce flicker / tap highlight */
+.tabs button{transition: background-color .15s ease, color .15s ease; box-shadow:none;}
+.tabs button:active{opacity:.85;}
+.tabs button.active{background: rgba(0,0,0,0.08);}
+select, input, button{ -webkit-tap-highlight-color: rgba(0,0,0,0); }
