@@ -1,0 +1,84 @@
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --text:#0b1220;
+  --muted:#58627a;
+  --accent:#1e90ff;
+  --border:rgba(10,20,40,.10);
+  --shadow:0 6px 18px rgba(10,20,40,.08);
+  --highlight:#fff3d7; /* 目に優しい淡いクリーム */
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(246,247,251,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 12px}
+.brand{font-weight:900;letter-spacing:.2px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tab{border:1px solid var(--border);background:var(--card);color:var(--text);padding:8px 10px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow)}
+.tab.active{background:var(--accent);border-color:transparent;color:white}
+
+.container{padding:14px 12px 90px;max-width:1180px;margin:0 auto}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px;margin:10px 0;box-shadow:var(--shadow)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.label{color:var(--muted);font-size:12px}
+.small{font-size:12px;color:var(--muted)}
+
+input,select,button{font:inherit}
+input[type="time"],input[type="text"],select{
+  background:#fff;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px 10px
+}
+select:disabled,input:disabled{opacity:.55}
+
+.btn{border:1px solid var(--border);background:#fff;color:var(--text);padding:9px 12px;border-radius:10px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:transparent;color:white}
+
+.sectionGrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.filtersGrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.fitem{display:flex;flex-direction:column;gap:6px}
+
+.tableWrap{overflow:auto}
+.table{width:100%;border-collapse:collapse;min-width:920px}
+.table th,.table td{border-bottom:1px solid var(--border);padding:8px 6px;text-align:left;vertical-align:top}
+.table th{color:var(--muted);font-weight:800;font-size:12px;white-space:nowrap}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;color:var(--muted);font-size:12px;background:rgba(255,255,255,.85)}
+.badge.now{color:#6a4d00;border-color:rgba(120,90,10,.20);background:rgba(255,243,215,.85)}
+.hidden{display:none}
+
+.footer{position:fixed;bottom:0;left:0;right:0;background:rgba(246,247,251,.92);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 12px}
+.nameRow{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
+.nameText{font-weight:900;overflow:hidden;text-overflow:ellipsis}
+
+.span2{grid-column: 1 / -1;}
+.spanAll{grid-column: 1 / -1;}
+.checksRow{gap:18px;}
+
+.nowrap{flex-wrap:nowrap}
+
+/* prevent select from forcing large widths */
+.sectionGrid select, .sectionGrid input { min-width: 0; }
+
+
+/* Input with clear button */
+.inputWithClear{ position:relative; display:flex; align-items:center; gap:6px; }
+.inputWithClear input{ flex:1; }
+.clearBtn{ width:34px; height:34px; border:1px solid #d0d0d0; background:#f7f7f7; border-radius:10px; font-size:18px; line-height:1; cursor:pointer; }
+.clearBtn:disabled{ opacity:0.35; cursor:default; }
+.inlineLabel{ font-size:12px; color:#555; white-space:nowrap; }
+
+.manualRow{align-items:flex-end;}
+.manualStack{display:flex;flex-direction:column;gap:4px;}
+.manualStack .inlineLabel{margin:0;white-space:nowrap;}
+.manualRow .manualStack select{min-width:72px;}
+
+.manualRow{align-items:flex-end;}
