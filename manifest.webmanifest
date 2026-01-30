@@ -1,6 +1,6 @@
 {
-  "name": "あつ森チェックリスト（オフライン）",
-  "short_name": "あつ森",
+  "name": "あつ森 いきものチェック",
+  "short_name": "いきものチェック",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f6f7fb",

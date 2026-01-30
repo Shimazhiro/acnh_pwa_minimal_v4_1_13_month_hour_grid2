@@ -82,3 +82,50 @@ select:disabled,input:disabled{opacity:.55}
 .manualRow .manualStack select{min-width:72px;}
 
 .manualRow{align-items:flex-end;}
+
+/* ---- topbar / tabs polish ---- */
+.brand{font-weight:900;letter-spacing:.02em;}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.tab{
+  border-radius:999px;
+  padding:8px 12px;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+  font-weight:800;
+}
+.tab.active{
+  border-color:rgba(0,0,0,.22);
+  background:rgba(0,0,0,.04);
+}
+
+/* ---- responsive table: no horizontal scroll on mobile ---- */
+@media (max-width: 640px){
+  .table thead{display:none;}
+  .table, .table tbody, .table tr, .table td{display:block;width:100%;}
+  .table{border:0;}
+  .table tr{
+    border:1px solid rgba(0,0,0,.12);
+    border-radius:14px;
+    padding:10px 12px;
+    margin:10px 0;
+    background:#fff;
+  }
+  .table td{
+    border:0;
+    padding:6px 0;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .table td::before{
+    content:attr(data-label);
+    font-weight:800;
+    color:rgba(0,0,0,.55);
+    flex:0 0 5.5em;
+  }
+  .table td.td-name{padding-top:2px;}
+  .table td.td-name::before{content:"";}
+  .table td.td-name{display:block;}
+  .table td.td-name .nameRow{display:flex;justify-content:space-between;gap:10px;align-items:center;}
+  .badge{max-width:100%;white-space:normal;}
+}
